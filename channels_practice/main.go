@@ -1,16 +1,25 @@
 package main
 
+import (
+	"fmt"
+	"time"
+)
+
 func main() {
-	ch := make(chan string, 2)
+	inputChan := make(chan string)
 
-	go func() {
-		ch <- "FNH FOREVER!"
-		ch <- "Greatt"
-		ch <- "Hello"
-	}()
-	// ch <- "FNH FOREVER!"
-	// ch <- "Greatt"
-	// ch <- "Hello"
+	// read use input
+	readUserInput(inputChan)
 
-	// fmt.Printf("%s\n%s", <-ch, <-ch)
+	// listen to user input
+	for input := range inputChan {
+		fmt.Printf("The input was : %s", input)
+	}
+
+	// go func() {
+	// 	time.Sleep(2 * time.Second)
+	// 	ch <- "FNH FOREVER!"
+	// 	ch <- "Greatt"
+	// }()
+	time.Sleep(2 * time.Second)
 }
