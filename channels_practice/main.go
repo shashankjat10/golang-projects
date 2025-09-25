@@ -2,18 +2,17 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func main() {
 	inputChan := make(chan string)
 
 	// read use input
-	readUserInput(inputChan)
+	go readUserInput(inputChan)
 
 	// listen to user input
 	for input := range inputChan {
-		fmt.Printf("The input was : %s", input)
+		fmt.Printf("The input was : %s\n", input)
 	}
 
 	// go func() {
@@ -21,5 +20,5 @@ func main() {
 	// 	ch <- "FNH FOREVER!"
 	// 	ch <- "Greatt"
 	// }()
-	time.Sleep(2 * time.Second)
+	// time.Sleep(2 * time.Second)
 }
