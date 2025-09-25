@@ -10,6 +10,12 @@ func main() {
 	// read use input
 	go readUserInput(inputChan)
 
+	// customer queue channel
+	customerQueueChan := make(chan string, 10)
+
+	// barista channel
+	baristaChan := make(chan string, 2)
+
 	// listen to user input
 	for input := range inputChan {
 		fmt.Printf("The input was : %s\n", input)
