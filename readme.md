@@ -17,3 +17,6 @@ Requirements :
     "+barista", to decrease : "-barista"
 4. There can be variable number of coffee machines : to increase : "+machine", to decrease : "-machine"
 5. There are fixed number of tables : 10
+
+COMMANDS : 
+1. To add a custom : customer,<CustomerName>,
