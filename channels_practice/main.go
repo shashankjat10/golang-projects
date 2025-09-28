@@ -4,6 +4,9 @@ import (
 	"fmt"
 )
 
+var coffeeMachines int = 3
+var baristas int = 2
+
 func main() {
 	inputChan := make(chan string)
 
@@ -11,14 +14,18 @@ func main() {
 	go readUserInput(inputChan)
 
 	// customer queue channel
-	customerQueueChan := make(chan string, 10)
+	// customerQueueChan := make(chan string, 10)
 
-	// barista channel
-	baristaChan := make(chan string, 2)
+	// // barista channel
+	// baristaChan := make(chan string, 2)
 
 	// listen to user input
 	for input := range inputChan {
 		fmt.Printf("The input was : %s\n", input)
+
+		switch input {
+
+		}
 	}
 
 	// go func() {
