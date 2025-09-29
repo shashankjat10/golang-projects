@@ -11,10 +11,10 @@ func handleCommands(inputChan chan string) {
 
 }
 
-// get a new customer from a customer command split
+// getCustomerFromCommand gets a new customer from a customer command split
 func getCustomerFromCommand(command []string) (*Customer, error) {
 	if len(command) != 4 {
-		return nil, errors.New("Please enter a valid customer command")
+		return nil, errors.New("Invalid custom command")
 	}
 
 	// take apart the customer entry data
@@ -26,4 +26,19 @@ func getCustomerFromCommand(command []string) (*Customer, error) {
 	}
 
 	return NewCustomer(name, order, consumptionTime), nil
+}
+
+// getBaristaFromCommand gets a new barista from a command
+func getBaristaFromCommand(command []string) (*Barista, error) {
+	if len(command) != 3 {
+		return nil, errors.New("Invalid barista+ command")
+	}
+	name := command[1]
+	orderTime, err := strconv.Atoi(command[2])
+	if err != nil {
+		return nil, err
+	}
+	greeting := command[3]
+
+	return NewBarista(name, orderTime, greeting), nil
 }
