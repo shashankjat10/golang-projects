@@ -19,4 +19,9 @@ Requirements :
 5. There are fixed number of tables : 10
 
 COMMANDS : 
-1. To add a custom : customer,<CustomerName>,
+1. To add a custom : customer,<CustomerName>,<Order>,<ConsumptionTime>
+2. Adding a new barista : barista+,<Name>,<OrderTime>,<Greeting>
+3. Steps to remove a barista : barista-,<Name>
+4. Steps to add a new coffee machine : machine+,<Name>,<PrepTime>
+5. Removing a machine : machine-,<Name>
+6. 
