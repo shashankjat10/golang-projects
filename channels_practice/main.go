@@ -5,15 +5,6 @@ var baristas int = 2
 var availableBaristas []*Barista
 var availableMachines []*CoffeeMachine
 
-const (
-	CommandAddCustomer   = "customer"
-	CommandAddBarista    = "barista+"
-	CommandRemoveBarista = "barista-"
-	CommandAddMachine    = "machine+"
-	CommandRemoveMachine = "machine-"
-	CommandExit          = "exit"
-)
-
 func main() {
 	inputChan := make(chan string)
 
