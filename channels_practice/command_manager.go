@@ -78,7 +78,7 @@ func handleBaristaRemovalCommand(command []string) error {
 
 // handleMachineAdditionCommand handles a machine addition
 func handleMachineAdditionCommand(command []string, orderChan chan *Order) error {
-	newMachine, err := getMahineFromCommand(command)
+	newMachine, err := getMachineFromCommand(command)
 	if err != nil {
 		fmt.Printf("Error while handling machine+ command : %v\n%s\n", err, CommandHelpAddMachine)
 		return err
@@ -153,7 +153,7 @@ func getAvailableBaristaIndexFromCommand(command []string) (int, error) {
 }
 
 // getMahineFromCommand gets a new coffee machine from a command
-func getMahineFromCommand(command []string) (*CoffeeMachine, error) {
+func getMachineFromCommand(command []string) (*CoffeeMachine, error) {
 	if len(command) != 3 {
 		return nil, errors.New("invalid machine+ command")
 	}
