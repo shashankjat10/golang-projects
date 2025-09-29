@@ -14,7 +14,7 @@ func main() {
 	customerQueueChan := make(chan *Customer, 10)
 
 	// order channel
-	orderChan := make(chan *Order)
+	orderChan := make(chan *Order, 10)
 
 	// handle the input commands
 	handleCommands(inputChan, customerQueueChan, orderChan)

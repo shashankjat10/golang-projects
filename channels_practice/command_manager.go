@@ -23,12 +23,13 @@ func handleCommands(inputChan chan string, customerChan chan *Customer, orderCha
 		case CommandRemoveBarista:
 			handleBaristaRemovalCommand(data)
 		case CommandAddMachine:
-			handleMachineAdditionCommand(data)
+			handleMachineAdditionCommand(data, orderChan)
 		case CommandRemoveMachine:
 			handleMachineRemovalCommand(data)
 		case CommandExit:
 			close(inputChan)
 			close(customerChan)
+			close(orderChan)
 			fmt.Println("Shutting down coffee shop")
 		default:
 			fmt.Println("Invalid command")
@@ -71,13 +72,14 @@ func handleBaristaRemovalCommand(command []string) error {
 }
 
 // handleMachineAdditionCommand handles a machine addition
-func handleMachineAdditionCommand(command []string) error {
+func handleMachineAdditionCommand(command []string, orderChan chan *Order) error {
 	newMachine, err := getMahineFromCommand(command)
 	if err != nil {
 		fmt.Printf("Error while handling machine+ command : %v\n%s\n", err, CommandHelpAddMachine)
 		return err
 	}
 	availableMachines = append(availableMachines, newMachine)
+	newMachine.AddToPool(orderChan)
 	return nil
 }
 
