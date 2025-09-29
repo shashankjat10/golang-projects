@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -71,7 +72,7 @@ func handleBaristaRemovalCommand(command []string) error {
 		return err
 	}
 	availableBaristas[baristaIndex].Cancel()
-	availableBaristas = append(availableBaristas[:baristaIndex], availableBaristas[baristaIndex+1:]...)
+	availableBaristas = slices.Delete(availableBaristas, baristaIndex, baristaIndex+1)
 	return nil
 }
 
@@ -97,7 +98,7 @@ func handleMachineRemovalCommand(command []string) error {
 		return err
 	}
 	availableMachines[machineIndex].Cancel()
-	availableMachines = append(availableMachines[:machineIndex], availableMachines[machineIndex+1:]...)
+	availableMachines = slices.Delete(availableMachines, machineIndex, machineIndex+1)
 	return nil
 }
 
