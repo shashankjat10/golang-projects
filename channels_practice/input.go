@@ -9,6 +9,8 @@ import (
 
 // read user input through the terminal
 func readUserInput(inputChan chan string) {
+	fmt.Printf("Use these commands to run the coffee shop: \n%s\n%s\n%s\n%s\n%s\n%s\n",
+		CommandHelpAddCustomer, CommandHelpAddBarista, CommandHelpRemoveBarista, CommandHelpAddMachine, CommandHelpRemoveMachine, CommandHelpExit)
 	input := ""
 	scanner := bufio.NewScanner(os.Stdin)
 

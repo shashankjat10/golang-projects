@@ -1,7 +1,5 @@
 package main
 
-var coffeeMachines int = 3
-var baristas int = 2
 var availableBaristas []*Barista
 var availableMachines []*CoffeeMachine
 
