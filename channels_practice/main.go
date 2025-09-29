@@ -43,6 +43,7 @@ func main() {
 		case CommandRemoveMachine:
 			fmt.Println("removed a machine")
 		case CommandExit:
+			close(inputChan)
 			fmt.Println("Shutting down coffee shop")
 		default:
 			fmt.Println("Invalid command")
