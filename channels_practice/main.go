@@ -24,7 +24,7 @@ func main() {
 	go readUserInput(inputChan)
 
 	// customer queue channel
-	// customerQueueChan := make(chan string, 10)
+	customerQueueChan := make(chan *Customer, 10)
 
 	// listen to user input
 	for input := range inputChan {
@@ -33,6 +33,7 @@ func main() {
 		command := data[0]
 		switch command {
 		case CommandAddCustomer:
+			customerQueueChan <- NewCustomer()
 			fmt.Println("Added a new custom")
 		case CommandAddBarista:
 			fmt.Println("added a barista")
