@@ -40,7 +40,7 @@ func handleCommands(inputChan chan string, customerChan chan *Customer) {
 func handleCustomerAdditionCommand(command []string, customerChan chan *Customer) error {
 	newCustomer, err := getCustomerFromCommand(command)
 	if err != nil {
-		fmt.Printf("Error while handling customer command : %v", err)
+		fmt.Printf("Error while handling customer command : %v\n", err)
 		return err
 	}
 	customerChan <- newCustomer
@@ -51,7 +51,7 @@ func handleCustomerAdditionCommand(command []string, customerChan chan *Customer
 func handleBaristaAdditionCommand(command []string) error {
 	newBarista, err := getBaristaFromCommand(command)
 	if err != nil {
-		fmt.Printf("Error while handling barista+ command : %v", err)
+		fmt.Printf("Error while handling barista+ command : %v\n", err)
 		return err
 	}
 	availableBaristas = append(availableBaristas, newBarista)
@@ -62,7 +62,7 @@ func handleBaristaAdditionCommand(command []string) error {
 func handleBaristaRemovalCommand(command []string) error {
 	baristaIndex, err := getAvailableBaristaIndexFromCommand(command)
 	if err != nil {
-		fmt.Printf("Error while handling barista- command : %v", err)
+		fmt.Printf("Error while handling barista- command : %v\n", err)
 		return err
 	}
 	availableBaristas = append(availableBaristas[:baristaIndex], availableBaristas[baristaIndex+1:]...)
@@ -73,7 +73,7 @@ func handleBaristaRemovalCommand(command []string) error {
 func handleMachineAdditionCommand(command []string) error {
 	newMachine, err := getMahineFromCommand(command)
 	if err != nil {
-		fmt.Printf("Error while handling machine+ command : %v", err)
+		fmt.Printf("Error while handling machine+ command : %v\n", err)
 		return err
 	}
 	availableMachines = append(availableMachines, newMachine)
@@ -84,7 +84,7 @@ func handleMachineAdditionCommand(command []string) error {
 func handleMachineRemovalCommand(command []string) error {
 	machineIndex, err := getAvailableMachineIndexFromCommand(command)
 	if err != nil {
-		fmt.Printf("Error while handling machine- command : %v", err)
+		fmt.Printf("Error while handling machine- command : %v\n", err)
 		return err
 	}
 	availableMachines = append(availableMachines[:machineIndex], availableMachines[machineIndex+1:]...)
@@ -94,7 +94,7 @@ func handleMachineRemovalCommand(command []string) error {
 // getCustomerFromCommand gets a new customer from a customer command split
 func getCustomerFromCommand(command []string) (*Customer, error) {
 	if len(command) != 4 {
-		return nil, errors.New("invalid custom command")
+		return nil, errors.New("invalid customer command")
 	}
 
 	// take apart the customer entry data
