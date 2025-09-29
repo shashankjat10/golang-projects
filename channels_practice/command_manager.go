@@ -70,6 +70,7 @@ func handleBaristaRemovalCommand(command []string) error {
 		fmt.Printf("Error while handling barista- command : %v\n%s\n", err, CommandHelpRemoveBarista)
 		return err
 	}
+	availableBaristas[baristaIndex].Cancel()
 	availableBaristas = append(availableBaristas[:baristaIndex], availableBaristas[baristaIndex+1:]...)
 	return nil
 }
@@ -95,6 +96,7 @@ func handleMachineRemovalCommand(command []string) error {
 		fmt.Printf("Error while handling machine- command : %v\n%s\n", err, CommandHelpRemoveMachine)
 		return err
 	}
+	availableMachines[machineIndex].Cancel()
 	availableMachines = append(availableMachines[:machineIndex], availableMachines[machineIndex+1:]...)
 	return nil
 }
