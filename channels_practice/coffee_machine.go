@@ -1,15 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"time"
 )
 
 type CoffeeMachine struct {
-	PrepTime      int     // seconds
-	Name          string  // title
-	Charge        float32 // current battery percentage
-	DischargeRate float32 // discharge rate
+	PrepTime      int                // seconds
+	Name          string             // title
+	Charge        float32            // current battery percentage
+	DischargeRate float32            // discharge rate
+	Cancel        context.CancelFunc // cancel function to stop the machine from working
 }
 
 func NewCoffeeMachine(prepTime int, name string) *CoffeeMachine {
@@ -20,9 +22,17 @@ func NewCoffeeMachine(prepTime int, name string) *CoffeeMachine {
 }
 
 // Add the coffee machine to machine pool
-func (cm *CoffeeMachine) AddToPool(orderChan chan *Order) {
+func (cm *CoffeeMachine) AddToPool(context context.Context, orderChan chan *Order) {
 	go func() {
-		for order := range orderChan {
+		select {
+		case <-context.Done():
+			fmt.Printf("%s has stopped working.\n", cm.Name)
+			return
+		case order, ok := <-orderChan:
+			if !ok {
+				// channel closed
+				return
+			}
 			fmt.Printf("\n%s is prepping the order %d, %s. Will take %d seconds.\n",
 				cm.Name, order.Id, order.Item, cm.PrepTime)
 			time.Sleep(time.Duration(cm.PrepTime) * time.Second)

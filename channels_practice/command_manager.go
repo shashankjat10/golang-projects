@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"strconv"
@@ -55,8 +56,10 @@ func handleBaristaAdditionCommand(command []string, customerChan chan *Customer,
 		fmt.Printf("Error while handling barista+ command : %v\n%s\n", err, CommandHelpAddBarista)
 		return err
 	}
+	ctx, cancel := context.WithCancel(context.Background())
+	newBarista.Cancel = cancel
 	availableBaristas = append(availableBaristas, newBarista)
-	newBarista.AddToPool(customerChan, orderChan)
+	newBarista.AddToPool(ctx, customerChan, orderChan)
 	return nil
 }
 
@@ -78,8 +81,10 @@ func handleMachineAdditionCommand(command []string, orderChan chan *Order) error
 		fmt.Printf("Error while handling machine+ command : %v\n%s\n", err, CommandHelpAddMachine)
 		return err
 	}
+	ctx, cancel := context.WithCancel(context.Background())
+	newMachine.Cancel = cancel
 	availableMachines = append(availableMachines, newMachine)
-	newMachine.AddToPool(orderChan)
+	newMachine.AddToPool(ctx, orderChan)
 	return nil
 }
 

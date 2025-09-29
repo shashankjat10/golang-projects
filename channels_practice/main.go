@@ -18,11 +18,4 @@ func main() {
 
 	// handle the input commands
 	handleCommands(inputChan, customerQueueChan, orderChan)
-
-	// go func() {
-	// 	time.Sleep(2 * time.Second)
-	// 	ch <- "FNH FOREVER!"
-	// 	ch <- "Greatt"
-	// }()
-	// time.Sleep(2 * time.Second)
 }
