@@ -42,3 +42,21 @@ func getBaristaFromCommand(command []string) (*Barista, error) {
 
 	return NewBarista(name, orderTime, greeting), nil
 }
+
+// getAvailableBaristaFromCommand get the barista name from command, and then
+// gets that particular barista from the working baristas
+func getAvailableBaristaFromCommand(command []string) (*Barista, error) {
+	if len(command) != 2 {
+		return nil, errors.New("Invalid barista- command")
+	}
+	name := command[1]
+	if availableBaristas == nil {
+		return nil, errors.New("No barista working at the moment")
+	}
+	for _, barista := range availableBaristas {
+		if barista.Name == name {
+			return barista, nil
+		}
+	}
+	return nil, errors.New("Could not find barista to remove.")
+}

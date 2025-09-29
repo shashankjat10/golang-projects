@@ -7,6 +7,7 @@ import (
 
 var coffeeMachines int = 3
 var baristas int = 2
+var availableBaristas []*Barista
 
 const (
 	CommandAddCustomer   = "customer"
