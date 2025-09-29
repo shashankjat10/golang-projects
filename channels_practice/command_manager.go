@@ -9,7 +9,7 @@ import (
 
 // assignCommands function takes in respective channels
 // and then passes the data correctly
-func handleCommands(inputChan chan string, customerChan chan *Customer) {
+func handleCommands(inputChan chan string, customerChan chan *Customer, orderChan chan *Order) {
 	// listen to user input
 	for input := range inputChan {
 		// fmt.Printf("The input was : %s\n", input)
@@ -19,7 +19,7 @@ func handleCommands(inputChan chan string, customerChan chan *Customer) {
 		case CommandAddCustomer:
 			handleCustomerAdditionCommand(data, customerChan)
 		case CommandAddBarista:
-			handleBaristaAdditionCommand(data)
+			handleBaristaAdditionCommand(data, customerChan, orderChan)
 		case CommandRemoveBarista:
 			handleBaristaRemovalCommand(data)
 		case CommandAddMachine:
@@ -48,13 +48,14 @@ func handleCustomerAdditionCommand(command []string, customerChan chan *Customer
 }
 
 // handleBaristaAdditionCommand handles a barista addition
-func handleBaristaAdditionCommand(command []string) error {
+func handleBaristaAdditionCommand(command []string, customerChan chan *Customer, orderChan chan *Order) error {
 	newBarista, err := getBaristaFromCommand(command)
 	if err != nil {
 		fmt.Printf("Error while handling barista+ command : %v\n%s\n", err, CommandHelpAddBarista)
 		return err
 	}
 	availableBaristas = append(availableBaristas, newBarista)
+	newBarista.AddToPool(customerChan, orderChan)
 	return nil
 }
 
@@ -110,7 +111,7 @@ func getCustomerFromCommand(command []string) (*Customer, error) {
 
 // getBaristaFromCommand gets a new barista from a command
 func getBaristaFromCommand(command []string) (*Barista, error) {
-	if len(command) != 3 {
+	if len(command) != 4 {
 		return nil, errors.New("invalid barista+ command")
 	}
 	name := command[1]
@@ -143,7 +144,7 @@ func getAvailableBaristaIndexFromCommand(command []string) (int, error) {
 
 // getMahineFromCommand gets a new coffee machine from a command
 func getMahineFromCommand(command []string) (*CoffeeMachine, error) {
-	if len(command) != 2 {
+	if len(command) != 3 {
 		return nil, errors.New("invalid machine+ command")
 	}
 	name := command[1]
