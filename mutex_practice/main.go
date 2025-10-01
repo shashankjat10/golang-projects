@@ -9,8 +9,10 @@ import (
 )
 
 var sharedCounter int = 0
+var counterMap sync.Map
 
 func main() {
+	counterMap.Store("counter", 0)
 	fmt.Println(`This program is used to increase a counter whose value is set to 0.
 It will increase it a 1000 times using parallel go routines. You can choose 
 whether to use mutexe or not. If you want to use mutex, type Y, otherwise type N.`)
